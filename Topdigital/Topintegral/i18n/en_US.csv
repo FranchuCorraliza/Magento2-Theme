@@ -1,0 +1,83 @@
+"Go back to product details","Go back to product details"
+"Customize and Add to Cart","Customize and Add to Cart"
+"* Required Fields","* Required Fields"
+"Your Customization","Your Customization"
+Availability,Availability
+"In stock","In stock"
+"Out of stock","Out of stock"
+Summary,Summary
+"%1 x %2","%1 x %2"
+Availability:,Availability:
+None,None
+"More information","More information"
+Quantity,Quantity
+"Choose a selection...","Choose a selection..."
+"Customize %1","Customize %1"
+"No options of this product are available.","No options of this product are available."
+SKU,SKU
+"Gift Message","Gift Message"
+From:,From:
+To:,To:
+Message:,Message:
+N/A,N/A
+"Product Name","Product Name"
+Price,Price
+Subtotal,Subtotal
+"Discount Amount","Discount Amount"
+"Row Total","Row Total"
+"Qty Invoiced","Qty Invoiced"
+Ordered,Ordered
+Shipped,Shipped
+Canceled,Canceled
+Refunded,Refunded
+"Qty Shipped","Qty Shipped"
+"We can't find products matching the selection.","We can't find products matching the selection."
+"Piso completo por","Piso completo por"
+"Furniture config","Furniture config"
+"Configurar mobiliario","Configurar mobiliario"
+"Learn More","Learn More"
+"Add to Cart","Add to Cart"
+"New Products","New Products"
+"Add to Wish List","Add to Wish List"
+"Add to Compare","Add to Compare"
+"Credit memo for your %store_name order","Credit memo for your %store_name order"
+"%name,","%name,"
+"Thank you for your order from %store_name.","Thank you for your order from %store_name."
+"You can check the status of your order by <a href=""%account_url"">logging into your account</a>.","You can check the status of your order by <a href=""%account_url"">logging into your account</a>."
+"If you have questions about your order, you can email us at <a href=""mailto:%store_email"">%store_email</a>.","If you have questions about your order, you can email us at <a href=""mailto:%store_email"">%store_email</a>."
+"Your Credit Memo #%creditmemo_id for Order #%order_id","Your Credit Memo #%creditmemo_id for Order #%order_id"
+"Billing Info","Billing Info"
+"Shipping Info","Shipping Info"
+"Payment Method","Payment Method"
+"Shipping Method","Shipping Method"
+"Update to your %store_name credit memo","Update to your %store_name credit memo"
+"Your order #%increment_id has been updated with a status of <strong>%order_status</strong>.","Your order #%increment_id has been updated with a status of <strong>%order_status</strong>."
+"Invoice for your %store_name order","Invoice for your %store_name order"
+"Your Invoice #%invoice_id for Order #%order_id","Your Invoice #%invoice_id for Order #%order_id"
+"Update to your %store_name invoice","Update to your %store_name invoice"
+"Your %store_name order confirmation","Your %store_name order confirmation"
+"%customer_name,","%customer_name,"
+"Once your package ships we will send you a tracking number.","Once your package ships we will send you a tracking number."
+"Your Order <span class=""no-link"">#%increment_id</span>","Your Order <span class=""no-link"">#%increment_id</span>"
+"Placed on <span class=""no-link"">%created_at</span>","Placed on <span class=""no-link"">%created_at</span>"
+"Update to your %store_name order","Update to your %store_name order"
+"Your %store_name order has shipped","Your %store_name order has shipped"
+"Your shipping confirmation is below. Thank you again for your business.","Your shipping confirmation is below. Thank you again for your business."
+"Your Shipment #%shipment_id for Order #%order_id","Your Shipment #%shipment_id for Order #%order_id"
+"Update to your %store_name shipment","Update to your %store_name shipment"
+Home,Home
+Promotion,Promotion
+"Quote Total","Quote Total"
+'Datos del piso','Floor Data'
+'Nombre','Name'
+'Teléfono','Phone'
+'Email','Email'
+'Datos de la vivienda','Housing data'
+'Promoción','Promotion'
+'Planta','Floor'
+'Bloque','Block'
+'Puerta','Door'
+'Escalera','Stairs'
+'Comentario','Comment'
+'Enviar solicitud','Send request'
+'Campos requeridos','Required fields'

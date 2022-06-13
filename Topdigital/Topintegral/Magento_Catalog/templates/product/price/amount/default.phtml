@@ -1,0 +1,82 @@
+<?php
+/**
+ * @package Divante/rapid
+ * @author Kacper Chara <kchara@divante.pl>
+ * @copyright 2017 Divante Sp. z o.o.
+ * @license See LICENSE_DIVANTE.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+
+<?php /** @var \Magento\Framework\Pricing\Render\Amount $block */ ?>
+<div class="price-box">
+    <span class="price-container <?php /* @escapeNotVerified */ echo $block->getAdjustmentCssClasses() ?>"
+            <?php echo $block->getSchema() ? ' itemprop="offers" itemscope itemtype="http://schema.org/Offer"' : '' ?>>
+        <?php if ($block->getDisplayLabel()): ?>
+            <span class="price-label"><?php /* @escapeNotVerified */ echo "Precio"; ?></span>
+        <?php endif; ?>
+        <span >
+            <?php 
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+            $product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');
+            
+            if($product){
+                if($product->getTypeId()=='bundle'){
+
+                    $selectionCollection = $product->getTypeInstance(true)
+                            ->getSelectionsCollection(
+                                $product->getTypeInstance(true)->getOptionsIds($product),
+                                $product
+                            );
+
+                    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+                    $cart = $objectManager->get('\Magento\Checkout\Model\Cart'); 
+
+                    $itemsincart = $cart->getQuote()->getAllItems();
+
+                    $allitmesku=array();
+                    foreach ($itemsincart as $mitem) {
+                        $skuopcion = explode('-',$mitem->getSku());
+                        foreach ($skuopcion as $sku) {
+                            $allitmesku[]=$sku;
+                        }
+                    }
+
+                        $precio = 0;
+                        $precio2 = 0;
+
+                        foreach ($selectionCollection as $proselection) {
+                            if(in_array($proselection->getSku(), $allitmesku)){
+                                $precio2 = $precio2 + $proselection->getPrice();
+                            }
+                            if($proselection->getIsDefault()==1){
+                                $precio = $precio + $proselection->getPrice();
+                            }
+                        }
+                        if($precio2!=0){
+                            echo $block->formatCurrency($precio2, (bool)$block->getIncludeContainer());
+                        }
+                        else{
+                            echo $block->formatCurrency($precio, (bool)$block->getIncludeContainer());
+                        }
+                }
+            }
+            else{
+                echo $block->formatCurrency($block->getDisplayValue(), (bool)$block->getIncludeContainer());
+            }
+            
+            /* @escapeNotVerified */ //echo $block->formatCurrency($block->getDisplayValue(), (bool)$block->getIncludeContainer()) 
+            //echo $block->formatCurrency($precio, (bool)$block->getIncludeContainer())
+            ?>
+        </span>
+        <?php if ($block->hasAdjustmentsHtml()): ?>
+            <?php echo $block->getAdjustmentsHtml() ?>
+        <?php endif; ?>
+        <?php if ($block->getSchema()): ?>
+            <meta itemprop="priceCurrency" content="<?php /* @escapeNotVerified */ echo $block->getDisplayCurrencyCode()?>" />
+        <?php endif; ?>
+    </span>
+</div>

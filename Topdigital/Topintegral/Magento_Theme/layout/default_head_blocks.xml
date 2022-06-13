@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../vendor/magento/framework/Module/etc/module.xsd">
+  <head>
+  	<css src="css/normalize.css" />
+	<css src="css/bootstrap.min.css" />
+	<css src="https://use.fontawesome.com/releases/v5.2.0/css/all.css" src_type="url"/>
+    <css src="css/local-l.css"/>
+  </head>
+</page>

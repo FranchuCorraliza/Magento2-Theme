@@ -1,0 +1,27 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<div class="footer-container">
+    <div class="footer">
+        <?= $block->getChildHtml() ?>
+        <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('footer')->toHtml(); ?>
+    </div>
+</div>
+<div class="popup-nocar">
+    <div class="containerpopup">
+        <div class="textopopup">
+            <?php echo __("Para poder visualizar el resto de ambientes de muebles debe vaciar el presupuesto actualmente precargado"); ?>
+        </div>
+        <div class="botonescontainer">
+        	<div class="borrar deletecartorder"><?php echo __("Borrar");?></div>
+        	<a class="continuar" href="<?php echo $block->getUrl('checkout/cart');?>"><?php echo __("Continuar");?></a>
+        </div>
+        
+    </div>
+</div>

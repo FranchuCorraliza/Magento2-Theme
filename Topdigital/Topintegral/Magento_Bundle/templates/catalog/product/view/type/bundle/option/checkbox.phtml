@@ -1,0 +1,140 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+
+<?php /* @var $block \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Checkbox */ ?>
+<?php $_option = $block->getOption(); ?>
+<?php $_selections  = $_option->getSelections(); ?>
+<?php $_default     = $_option->getDefaultSelection(); ?>
+<?php list($_defaultQty, $_canChangeQty) = $block->getDefaultValues();
+
+//creamos el objectmanager para hacer la customizacion
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); ?>
+
+<div class="field option <?= ($_option->getRequired()) ? ' required': '' ?>">
+    <?php /*<label class="label">
+        <span><?= $block->escapeHtml($_option->getTitle()) ?></span>
+    </label>*/ ?>
+    <div class="control container-fluid">
+        <div class="nested options-list row">
+            <?php if ($block->showSingle()): ?>
+                <?= /* @escapeNotVerified */ $block->getSelectionQtyTitlePrice($_selections[0]) ?>
+                <input type="hidden"
+                       class="bundle-option-<?= /* @escapeNotVerified */ $_option->getId() ?>  product bundle option"
+                       name="bundle_option[<?= /* @escapeNotVerified */ $_option->getId() ?>]"
+                       value="<?= /* @escapeNotVerified */ $_selections[0]->getSelectionId() ?>"
+                       id="bundle-option-<?= (int)$_option->getId() ?>-<?= (int)$_selections[0]->getSelectionId() ?>"
+                       checked="checked"
+                    />
+            <?php else:?>
+              <?php 
+                  $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                  $cart = $objectManager->get('\Magento\Checkout\Model\Cart'); 
+
+                  $itemsincart = $cart->getQuote()->getAllItems();
+                  $allitmesku=array();
+
+                  $encontradoitem = 0;
+
+                  foreach ($itemsincart as $mitem) {
+                    $skuopcion = explode('-',$mitem->getSku());
+                    foreach ($skuopcion as $sku) {
+                      $allitmesku[]=$sku;
+                    }
+                  }
+                  foreach ($_selections as $_selection){
+                    if($allitmesku){
+                      if(in_array($_selection->getSku(), $allitmesku)){
+                        $encontradoitem=1;
+                      }
+                    }
+                  }
+              ?>
+                <?php foreach($_selections as $_selection): ?>
+                    <div class="field choice col-md-3">
+                      <div class="choice--item">
+                        <div class="bundle--imagechoice">
+                          <img src="<?php 
+                                    $_product = $objectManager->get('Magento\Catalog\Model\Product')->load($_selection->getId());
+                                    $productImageUrl = substr($block->getBaseUrl(),0,-3).'pub/media/catalog/product'.$_product->getImage();
+                                    echo $productImageUrl;
+                                 ?>">
+                        </div>
+                        <div class="bundle--moreinfo--parent">
+                          <div class="bundle--moreinfo">
+                            <?php echo __('More information') ?>
+                          </div>
+                          <div class="bundle--moreinfo--description">
+                            <div class="closeinfo">X</div><?php echo $_product->getDescription(); ?>
+                          </div>
+                        </div>
+                        <div class="bundle__option--info">
+                          <label class="label"
+                               for="bundle-option-<?= /* @escapeNotVerified */ $_option->getId() ?>-<?= /* @escapeNotVerified */ $_selection->getSelectionId() ?>">
+                            <span style="display: none;"><?= /* @escapeNotVerified */ $block->getSelectionTitlePrice($_selection) ?>**<?php echo $_product->getName(); ?></span>
+                            <div class="bundle__option--title">
+                              <?php echo $_selection->getName(); ?>
+                            </div>
+                            <div class="bundle__option--price">
+                              <?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+                              $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
+                              $price =  $_product->getPrice('final_price');
+                              $formattedPrice = $priceHelper->currency($price, true, false); 
+                              echo $formattedPrice; ?>
+                              <input class="bundle-option-<?= /* @escapeNotVerified */ $_option->getId() ?> checkbox product bundle option change-container-classname optiontocheked<?php echo $_product->getId(); ?> optiontochekedins<?php echo $_product->getId(); ?>"
+                               id="bundle-option-<?= /* @escapeNotVerified */ $_option->getId() ?>-<?= /* @escapeNotVerified */ $_selection->getSelectionId() ?>"
+                               type="checkbox"
+                                data-selectedoption="<?php echo $_selection->getSelectionId(); ?>" data-selecteoption="<?php echo $_selection->getId(); ?>" data-familia="<?php echo $_option->getId(); ?>"
+                               <?php if ($_option->getRequired()) /* @escapeNotVerified */ echo 'data-validate="{\'validate-one-required-by-name\':\'input[name^=&quot;bundle_option[' . $_option->getId() . ']&quot;]:checked\'}"'?>
+                               name="bundle_option[<?= /* @escapeNotVerified */ $_option->getId() ?>][<?= /* @escapeNotVerified */ $_selection->getId() ?>]"
+                               data-selector="bundle_option[<?= /* @escapeNotVerified */ $_option->getId() ?>][<?= /* @escapeNotVerified */ $_selection->getId() ?>]"
+                               <?php if ($block->isSelected($_selection)) echo ' checked="checked"' ?>
+                                <?php 
+                                $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+                                $cart = $objectManager->get('\Magento\Checkout\Model\Cart'); 
+
+                                $itemsincart = $cart->getQuote()->getAllItems();
+
+                                $allitmesku=array();
+                                foreach ($itemsincart as $mitem) {
+                                    $skuopcion = explode('-',$mitem->getSku());
+                                    foreach ($skuopcion as $sku) {
+                                        $allitmesku[]=$sku;
+                                    }
+                                }
+
+                                if($_selection->getIsDefault()==1 && in_array($_selection->getSku(), $allitmesku)) { echo 'checked'; }?>
+                               <?php if (!$_selection->isSaleable()) echo ' disabled="disabled"' ?>
+                               value="<?= /* @escapeNotVerified */ $_selection->getSelectionId() ?>"/>
+                               </div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                <?php endforeach; ?>
+                <div id="bundle-option-<?= /* @escapeNotVerified */ $_option->getId() ?>-container"></div>
+            <?php endif; ?>
+            <div class="field qty qty-holder">
+                <label class="label" for="bundle-option-<?= /* @escapeNotVerified */ $_option->getId() ?>-qty-input">
+                    <span><?= /* @escapeNotVerified */ __('Quantity') ?></span>
+                </label>
+                <div class="control">
+                    <input <?php if (!$_canChangeQty) echo ' disabled="disabled"' ?>
+                           id="bundle-option-<?= /* @escapeNotVerified */ $_option->getId() ?>-qty-input"
+                           class="input-text qty<?php if (!$_canChangeQty) echo ' qty-disabled' ?>"
+                           type="number"
+                           name="bundle_option_qty[<?= /* @escapeNotVerified */ $_option->getId() ?>]"
+                           data-selector="bundle_option_qty[<?= /* @escapeNotVerified */ $_option->getId() ?>]"
+                           value="<?= /* @escapeNotVerified */ $_defaultQty ?>"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

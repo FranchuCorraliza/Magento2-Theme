@@ -1,0 +1,23 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<body>
+		<referenceBlock name="logo">
+			<arguments>
+				<argument name="logo_file" xsi:type="string">images/mytheme-logo.jpg</argument>
+				<argument name="logo_img_width" xsi:type="number">200</argument>
+				<argument name="logo_img_height" xsi:type="number">200</argument>
+			</arguments>
+		</referenceBlock>
+		<move element="store.settings.language" destination="header-wrapper" as="store_settings_language" before="minicart"/>
+		<referenceContainer name="footer-container">
+            <block class="Magento\Theme\Block\Html\Footer" name="footer" template="html/footer.phtml"/>
+        </referenceContainer>
+		<referenceBlock name="catalog.compare.sidebar" remove="true"/><!--eliminar añadir para comparar del sidebar-->
+		<referenceBlock name="view.addto.compare" remove="true" /><!--eliminar añadir para comparar del producto-->
+		<referenceBlock name="view.addto.wishlist" remove="true" /><!--eliminar añadir a la wishlist del producto-->
+		<referenceBlock name="advanced-search-link" remove="true"/><!--eliminar la busqueda avanzada-->
+		<referenceBlock name="register-link" remove="true" /><!--eliminar el crear una cuenta-->
+        <referenceBlock name="wish-list-link" remove="true" /><!--eliminar la wishlist-->
+        <referenceBlock name="form.subscribe" remove="true" /><!--eliminar las newsletter-->
+        <referenceBlock name="report.bugs" remove="true" /><!--eliminar ayudanos a mantener magento-->
+	</body>
+</page>
